@@ -17,19 +17,39 @@ body{
 .calculator {
   display: flex;
   flex-direction: column;
+  background-color: rgb(224, 77, 77);
+  padding: 5rem;
+  border-radius: 5rem;
 }
 .display {
   text-align: end;
+  padding: 2rem;
+  background-color: rgba(245, 245, 245, 0.801);
+  border-radius: 2rem;
+  font-size: 2.5rem;
 }
 .buttons {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
 }
 .button {
   height: 8rem;
   width: 8rem;
+  border-radius: 2rem;
+  background-color: rgb(106, 250, 77);
+  color: rgb(206, 66, 255);
+  font-size: 4rem;
+}
+.clears {
+  margin: 2rem 0;
 }
 .delete {
-  grid-row-start: 4;
-  grid-column-start: 3;
+  width: 16rem;
+  background-color: #FFF542;
+  color: #36c052;
+}
+.operator {
+  background-color: rgb(59, 172, 227);
+  color: aliceblue;
 }
