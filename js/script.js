@@ -2,6 +2,7 @@ const display = document.querySelector('.display');
 const digits = document.querySelectorAll('.digit');
 const deletes = document.querySelector('#delete');
 const operators = document.querySelectorAll('.operator');
+const clear = document.querySelector('#clear');
 
 function add(a, b) {
   return a + b;
@@ -43,7 +44,8 @@ for(let i = 0; i < operators.length; i++) {
     addOperator(operators[i]);
   });
 }
-deletes.addEventListener('click', deleteOne)
+deletes.addEventListener('click', deleteOne);
+clear.addEventListener('click', ()=> display.textContent='')
 
 function addNumber(digit) {
   display.textContent += digit.textContent;
