@@ -1,3 +1,6 @@
+const display = document.querySelector('.display');
+const digits = document.querySelectorAll('.digit');
+
 function add(a, b) {
   return a + b;
 }
@@ -26,4 +29,14 @@ function operate(a, b, operator) {
       return divide(a, b);
       break;
   }
+}
+
+for(let i = 0; i < digits.length - 1; i++) {
+  digits[i].addEventListener("click", function(){
+    addNumber(digits[i]);
+  });
+}
+
+function addNumber(digit) {
+  display.textContent += digit.textContent;
 }
