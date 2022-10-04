@@ -1,9 +1,9 @@
-const display = document.querySelector('.display');
-const digits = document.querySelectorAll('.digit');
-const deletes = document.querySelector('#delete');
-const operators = document.querySelectorAll('.operator');
-const clear = document.querySelector('#clear');
-const equal = document.querySelector('.equals');
+const display = document.querySelector(".display");
+const digits = document.querySelectorAll(".digit");
+const deletes = document.querySelector("#delete");
+const operators = document.querySelectorAll(".operator");
+const clear = document.querySelector("#clear");
+const equal = document.querySelector(".equals");
 const decimal = document.querySelector("#decimal");
 
 function add(a, b) {
@@ -16,7 +16,7 @@ function multiply(a, b) {
   return a * b;
 }
 function divide(a, b) {
-  return a / b
+  return a / b;
 }
 
 function operate(a, operator, b) {
@@ -31,55 +31,61 @@ function operate(a, operator, b) {
       return multiply(a, b);
       break;
     case "/":
-      if(b == 0) return "math error";
+      if (b == 0) return "math error";
       return divide(a, b);
       break;
   }
 }
 
-for(let i = 0; i < digits.length - 1; i++) {
-  digits[i].addEventListener("click", function(){
+for (let i = 0; i < digits.length - 1; i++) {
+  digits[i].addEventListener("click", function () {
     addNumber(digits[i].textContent);
   });
 }
-for(let i = 0; i < operators.length; i++) {
-  operators[i].addEventListener("click", function(){
+for (let i = 0; i < operators.length; i++) {
+  operators[i].addEventListener("click", function () {
     addOperator(operators[i].textContent);
   });
 }
-deletes.addEventListener('click', deleteOne);
-clear.addEventListener('click', ()=> display.textContent='')
+deletes.addEventListener("click", deleteOne);
+clear.addEventListener("click", () => (display.textContent = ""));
 equal.addEventListener("click", calculate);
 
 function addNumber(digit) {
-  if(display.textContent == "math error") display.textContent = '';
+  if (display.textContent == "math error") display.textContent = "";
   display.textContent += digit;
-
 }
 function addOperator(operator) {
-  if(display.textContent.slice(-1) == ' ' || display.textContent == "math error") return;
+  if (
+    display.textContent.slice(-1) == " " ||
+    display.textContent == "math error"
+  )
+    return;
 
   const regex = /[\+\-\*\/]/;
-  if(regex.test(display.textContent)) calculate();
+  if (regex.test(display.textContent)) calculate();
 
   display.textContent += ` ${operator} `;
 }
 
 function deleteOne() {
-  if(display.textContent.slice(-1) == ' ') display.textContent = display.textContent.slice(0, -3);
-  else if (display.textContent == "math error") display.textContent = '';
+  if (display.textContent.slice(-1) == " ")
+    display.textContent = display.textContent.slice(0, -3);
+  else if (display.textContent == "math error") display.textContent = "";
   else display.textContent = display.textContent.slice(0, -1);
 }
 
-function calculate(){
+function calculate() {
   const parts = display.textContent.trim().split(" ");
-  if(parts.length < 3) return;
+  if (parts.length < 3) return;
 
-  display.textContent = Math.round(operate(Number(parts[0]), parts[1], Number(parts[2])) * 100) / 100;
+  display.textContent =
+    Math.round(operate(Number(parts[0]), parts[1], Number(parts[2])) * 100) /
+    100;
 }
 
-window.addEventListener("keydown", function(event) {
-  switch (event.key){
+window.addEventListener("keydown", function (event) {
+  switch (event.key) {
     case "1":
     case "2":
     case "3":
@@ -89,7 +95,7 @@ window.addEventListener("keydown", function(event) {
     case "7":
     case "8":
     case "9":
-    case "0": 
+    case "0":
       addNumber(event.key);
       break;
     case "+":
@@ -114,13 +120,16 @@ window.addEventListener("keydown", function(event) {
 decimal.addEventListener("click", toggleDecimal);
 
 function toggleDecimal() {
-  if (display.textContent.slice(-1) == ' ') return;
+  if (display.textContent.slice(-1) == " ") return;
 
   const parts = display.textContent.trim().split(" ");
-  if(parts[parts.length - 1].includes(".")) {
-    const swap = parts[parts.length - 1].replace('.','');
-    display.textContent = display.textContent.replace(parts[parts.length - 1], swap);
+  if (parts[parts.length - 1].includes(".")) {
+    const swap = parts[parts.length - 1].replace(".", "");
+    display.textContent = display.textContent.replace(
+      parts[parts.length - 1],
+      swap
+    );
     return;
   }
-  display.textContent += '.';
+  display.textContent += ".";
 }
