@@ -4,6 +4,7 @@ const deletes = document.querySelector('#delete');
 const operators = document.querySelectorAll('.operator');
 const clear = document.querySelector('#clear');
 const equal = document.querySelector('.equals');
+const decimal = document.querySelector("#decimal");
 
 function add(a, b) {
   return a + b;
@@ -15,7 +16,7 @@ function multiply(a, b) {
   return a * b;
 }
 function divide(a, b) {
-  return Math.round(a / b * 100) / 100;
+  return a / b
 }
 
 function operate(a, operator, b) {
@@ -36,7 +37,7 @@ function operate(a, operator, b) {
   }
 }
 
-for(let i = 0; i < digits.length; i++) {
+for(let i = 0; i < digits.length - 1; i++) {
   digits[i].addEventListener("click", function(){
     addNumber(digits[i].textContent);
   });
@@ -74,7 +75,7 @@ function calculate(){
   const parts = display.textContent.trim().split(" ");
   if(parts.length < 3) return;
 
-  display.textContent = operate(Number(parts[0]), parts[1], Number(parts[2]));
+  display.textContent = Math.round(operate(Number(parts[0]), parts[1], Number(parts[2])) * 100) / 100;
 }
 
 window.addEventListener("keydown", function(event) {
@@ -98,10 +99,28 @@ window.addEventListener("keydown", function(event) {
       addOperator(event.key);
       break;
     case "=":
+    case "Enter":
       calculate();
       break;
     case "Backspace":
       deleteOne();
       break;
+    case ".":
+      toggleDecimal();
+      break;
   }
 });
+
+decimal.addEventListener("click", toggleDecimal);
+
+function toggleDecimal() {
+  if (display.textContent.slice(-1) == ' ') return;
+
+  const parts = display.textContent.trim().split(" ");
+  if(parts[parts.length - 1].includes(".")) {
+    const swap = parts[parts.length - 1].replace('.','');
+    display.textContent = display.textContent.replace(parts[parts.length - 1], swap);
+    return;
+  }
+  display.textContent += '.';
+}
