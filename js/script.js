@@ -38,12 +38,12 @@ function operate(a, operator, b) {
 
 for(let i = 0; i < digits.length; i++) {
   digits[i].addEventListener("click", function(){
-    addNumber(digits[i]);
+    addNumber(digits[i].textContent);
   });
 }
 for(let i = 0; i < operators.length; i++) {
   operators[i].addEventListener("click", function(){
-    addOperator(operators[i]);
+    addOperator(operators[i].textContent);
   });
 }
 deletes.addEventListener('click', deleteOne);
@@ -52,7 +52,8 @@ equal.addEventListener("click", calculate);
 
 function addNumber(digit) {
   if(display.textContent == "math error") display.textContent = '';
-  display.textContent += digit.textContent;
+  display.textContent += digit;
+
 }
 function addOperator(operator) {
   if(display.textContent.slice(-1) == ' ' || display.textContent == "math error") return;
@@ -60,7 +61,7 @@ function addOperator(operator) {
   const regex = /[\+\-\*\/]/;
   if(regex.test(display.textContent)) calculate();
 
-  display.textContent += ` ${operator.textContent} `;
+  display.textContent += ` ${operator} `;
 }
 
 function deleteOne() {
@@ -75,3 +76,29 @@ function calculate(){
 
   display.textContent = operate(Number(parts[0]), parts[1], Number(parts[2]));
 }
+
+window.addEventListener("keydown", function(event) {
+  switch (event.key){
+    case "1":
+    case "2":
+    case "3":
+    case "4":
+    case "5":
+    case "6":
+    case "7":
+    case "8":
+    case "9":
+    case "0": 
+      addNumber(event.key);
+      break;
+    case "+":
+    case "-":
+    case "*":
+    case "/":
+      addOperator(event.key);
+      break;
+    case "=":
+      calculate();
+      break;
+  }
+});
