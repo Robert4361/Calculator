@@ -100,5 +100,8 @@ window.addEventListener("keydown", function(event) {
     case "=":
       calculate();
       break;
+    case "Backspace":
+      deleteOne();
+      break;
   }
 });
