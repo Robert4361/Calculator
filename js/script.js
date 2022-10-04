@@ -51,6 +51,8 @@ function addNumber(digit) {
   display.textContent += digit.textContent;
 }
 function addOperator(operator) {
+  if(display.textContent.slice(-1) == ' ') return;
+
   display.textContent += ` ${operator.textContent} `;
 }
 
